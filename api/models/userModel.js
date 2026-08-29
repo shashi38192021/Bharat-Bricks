@@ -7,15 +7,24 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+
     email: {
       type: String,
       required: true,
       unique: true,
     },
+
+    phoneNumber: {
+      type: String,
+      required: true,
+      match: [/^[6-9]\d{9}$/, "Please enter a valid 10-digit mobile number."],
+    },
+
     password: {
       type: String,
       required: true,
     },
+
     avatar: {
       type: String,
       default:

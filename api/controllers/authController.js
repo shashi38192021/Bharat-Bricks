@@ -4,13 +4,32 @@ import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res, next) => {
-  const { username, email, password } = req.body;
-  const hashedPassword = bcryptjs.hashSync(password, 10);
-  const newUser = new User({ username, email, password: hashedPassword });
-
   try {
+    const { username, email, password, phoneNumber } = req.body;
+
+    if (!username || !email || !password || !phoneNumber) {
+      return next(
+        errorHandler(
+          400,
+          "Username, email, password, and phone number are required!"
+        )
+      );
+    }
+
+    const hashedPassword = bcryptjs.hashSync(password, 10);
+
+    const newUser = new User({
+      username,
+      email,
+      password: hashedPassword,
+      phoneNumber,
+    });
+
     await newUser.save();
-    res.status(201).json({ message: "User is created successfully!" });
+
+    res.status(201).json({
+      message: "User is created successfully!",
+    });
   } catch (error) {
     next(error);
   }

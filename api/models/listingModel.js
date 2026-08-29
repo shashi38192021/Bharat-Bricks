@@ -5,61 +5,167 @@ const listingSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      trim: true,
     },
+
     description: {
       type: String,
       required: true,
+      trim: true,
     },
+
     address: {
       type: String,
       required: true,
+      trim: true,
     },
+
+    city: {
+      type: String,
+      trim: true,
+    },
+
+    state: {
+      type: String,
+      trim: true,
+    },
+
+    pincode: {
+      type: String,
+      trim: true,
+    },
+
     phoneNumber: {
       type: String,
-      required: true, // Ensure every listing has a phone number
-    },
-    regularPrice: {
-      type: Number,
       required: true,
+      trim: true,
     },
-    discountPrice: {
-      type: Number,
-      required: true,
-    },
-    bathrooms: {
-      type: Number,
-      required: true,
-    },
-    bedrooms: {
-      type: Number,
-      required: true,
-    },
-    furnished: {
-      type: Boolean,
-      required: true,
-    },
-    parking: {
-      type: Boolean,
-      required: true,
-    },
+
     type: {
       type: String,
       required: true,
+      enum: ["sale", "rent", "lease"],
     },
-    offer: {
-      type: Boolean,
-      required: true,
-    },
-    imageUrls: {
-      type: Array,
-      required: true,
-    },
-    userRef: {
+
+    propertyType: {
       type: String,
       required: true,
+      enum: [
+        "Apartment",
+        "Independent House",
+        "Commercial Property",
+        "Plot",
+      ],
+    },
+
+    regularPrice: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+
+    negotiable: {
+      type: Boolean,
+      default: false,
+    },
+
+    leaseYears: {
+      type: Number,
+      min: 1,
+      max: 99,
+      default: null,
+    },
+
+    sqft: {
+      type: Number,
+      min: 0,
+      default: null,
+    },
+
+    bedrooms: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
+
+    bathrooms: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
+
+    basicAmenities: {
+      type: [String],
+      default: [],
+    },
+
+    luxuryAmenities: {
+      type: [String],
+      default: [],
+    },
+
+    imageUrls: {
+      type: [String],
+      default: [],
+    },
+
+    latitude: {
+      type: Number,
+      default: null,
+    },
+
+    longitude: {
+      type: Number,
+      default: null,
+    },
+
+    userRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
+    // Property Activity
+    activity: {
+      likedBy: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+
+      savedBy: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+
+      wantedToVisitBy: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+
+      visitedBy: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+
+      finalizedBy: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 const Listing = mongoose.model("Listing", listingSchema);

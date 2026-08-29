@@ -4,6 +4,7 @@ import { app } from "../firebase";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import { readApiResponse } from "../utils/api";
 
 const OAuth = () => {
   const dispatch = useDispatch();
@@ -28,11 +29,17 @@ const OAuth = () => {
         }),
       });
 
-      const data = await res.json();
+      const data = await readApiResponse(res);
+
+      if (!res.ok || data.success === false) {
+        throw new Error(data.message || "Google sign-in failed");
+      }
+
       dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
-      console.log("could not sign in with Google", error);
+      console.error("Google Sign-In Error:", error);
+      alert(error.message || "Could not sign in with Google");
     }
   };
 

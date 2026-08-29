@@ -7,6 +7,7 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import OAuth from "../components/OAuth";
+import { readApiResponse } from "../utils/api";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
@@ -33,7 +34,7 @@ const SignIn = () => {
         },
         body: JSON.stringify(formData),
       });
-      const data = await res.json();
+      const data = await readApiResponse(res);
 
       if (data.success === false) {
         dispatch(signInFailure(data.message));
