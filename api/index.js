@@ -2,12 +2,12 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import dns from "node:dns";
-import userRouter from "./routes/userRoute.js";
-import authRouter from "./routes/authRoute.js";
-import listingRouter from "./routes/listingRoute.js";
-import uploadRouter from "./routes/uploadRoute.js";
+import userRouter from "../server/routes/userRoute.js";
+import authRouter from "../server/routes/authRoute.js";
+import listingRouter from "../server/routes/listingRoute.js";
+import uploadRouter from "../server/routes/uploadRoute.js";
 import cookieParser from "cookie-parser";
-import emailRouter from "./routes/emailRoutes.js";
+import emailRouter from "../server/routes/emailRoutes.js";
 import path from "path";
 
 dotenv.config();
