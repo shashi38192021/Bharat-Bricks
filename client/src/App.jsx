@@ -17,6 +17,8 @@ import Title from "./pages/Title";
 import Listing from "./pages/Listing";
 import Search from "./pages/Search";
 import UserListings from "./pages/UserListings";
+import AdminDashboard from "./pages/AdminDashboard";
+import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
 
 const App = () => {
   return (
@@ -44,6 +46,9 @@ const App = () => {
           />
         </Route>
         <Route path="/user-listings" element={<UserListings />} />
+        <Route element={<OnlyAdminPrivateRoute />}>
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        </Route>
         
       </Routes>
       <Footer />

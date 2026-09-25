@@ -1,14 +1,16 @@
 import express from "express";
 import { verifyToken } from "../utils/verifyUser.js";
 import { verifyAdmin } from "../utils/adminMiddleware.js";
+
 import {
+  createAdminClient,
+  createAdminListing,
   deleteAdminListing,
   deleteAdminUser,
   getAllListings,
   getAllUsers,
   getStats,
   toggleAdminStatus,
-  toggleListingApproval,
 } from "../controllers/adminController.js";
 
 const router = express.Router();
@@ -18,16 +20,39 @@ router.get("/test", verifyToken, verifyAdmin, (req, res) => {
 });
 
 router.get("/stats", verifyToken, verifyAdmin, getStats);
+
 router.get("/users", verifyToken, verifyAdmin, getAllUsers);
-router.delete("/users/:id", verifyToken, verifyAdmin, deleteAdminUser);
-router.patch("/users/:id/admin", verifyToken, verifyAdmin, toggleAdminStatus);
-router.get("/listings", verifyToken, verifyAdmin, getAllListings);
-router.delete("/listings/:id", verifyToken, verifyAdmin, deleteAdminListing);
-router.put(
-  "/listings/approve/:id",
+
+router.post("/users/create", verifyToken, verifyAdmin, createAdminClient);
+
+router.delete(
+  "/users/:id",
   verifyToken,
   verifyAdmin,
-  toggleListingApproval
+  deleteAdminUser
+);
+
+router.patch(
+  "/users/:id/admin",
+  verifyToken,
+  verifyAdmin,
+  toggleAdminStatus
+);
+
+router.get("/listings", verifyToken, verifyAdmin, getAllListings);
+
+router.post(
+  "/listings/create",
+  verifyToken,
+  verifyAdmin,
+  createAdminListing
+);
+
+router.delete(
+  "/listings/:id",
+  verifyToken,
+  verifyAdmin,
+  deleteAdminListing
 );
 
 export default router;

@@ -31,6 +31,15 @@ export default function Header() {
             Home
           </Link>
 
+          {currentUser?.isAdmin && (
+            <Link
+              to="/admin-dashboard"
+              className="text-white hover:text-blue-400 transition"
+            >
+              Admin
+            </Link>
+          )}
+
           {/* Working Notification Bell */}
           <button
             type="button"

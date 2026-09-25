@@ -30,6 +30,27 @@ const userSchema = new mongoose.Schema(
       default:
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
     },
+
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+
+    role: {
+      type: String,
+      enum: ["user", "employee"],
+      default: "user",
+    },
+
+    employeeApproved: {
+      type: Boolean,
+      default: false,
+    },
+
+    employeeRequestPending: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
