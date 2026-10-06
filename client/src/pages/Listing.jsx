@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
@@ -33,6 +33,7 @@ const Listing = () => {
   const { listingId } = useParams();
 
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -160,7 +161,11 @@ const Listing = () => {
 
   const handleActivity = async (activityName) => {
     if (!currentUser) {
-      alert("Please sign in to continue.");
+      const destination =
+        localStorage.getItem("hasAuthenticatedBefore") === "true"
+          ? "/sign-in"
+          : "/sign-up";
+      navigate(destination);
       return;
     }
 
@@ -276,7 +281,11 @@ const Listing = () => {
 
   const handleReviewSubmit = () => {
     if (!currentUser) {
-      alert("Please sign in to submit a review.");
+      const destination =
+        localStorage.getItem("hasAuthenticatedBefore") === "true"
+          ? "/sign-in"
+          : "/sign-up";
+      navigate(destination);
       return;
     }
 

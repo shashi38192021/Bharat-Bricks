@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@marsidev/react-turnstile": "^1.6.1",
     "@reduxjs/toolkit": "^1.9.7",
     "alphaestate": "file:..",
     "dotenv": "^16.4.7",

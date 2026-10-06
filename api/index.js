@@ -12,6 +12,8 @@ import authRouter from "../server/routes/authRoute.js";
 import listingRouter from "../server/routes/listingRoute.js";
 import adminRouter from "../server/routes/adminRoute.js";
 import employeeRequestRouter from "../server/routes/employeeRequestRoute.js";
+import employeeActivityRouter from "../server/routes/employeeActivityRoute.js";
+import employeeClientRouter from "../server/routes/employeeClientRoute.js";
 import uploadRouter from "../server/routes/uploadRoute.js";
 import emailRouter from "../server/routes/emailRoutes.js";
 
@@ -45,6 +47,8 @@ app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/employee", employeeRequestRouter);
+app.use("/api/employee-activity", employeeActivityRouter);
+app.use("/api/employee-client", employeeClientRouter);
 app.use("/api/upload", uploadRouter);
 app.use("/api/email", emailRouter);
 

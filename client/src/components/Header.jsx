@@ -4,6 +4,15 @@ import { useSelector } from "react-redux";
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
 
+  const isAdmin = currentUser?.isAdmin === true;
+
+  const isApprovedEmployee =
+    currentUser?.role === "employee" &&
+    currentUser?.employeeApproved === true;
+
+  const canAccessUserDashboard =
+    isAdmin || isApprovedEmployee;
+
   const handleNotificationClick = () => {
     alert("No new notifications");
   };
@@ -11,19 +20,28 @@ export default function Header() {
   return (
     <header className="bg-[#182233] shadow-md">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-4">
-        
+
         {/* Logo */}
+
         <Link to="/">
           <h1 className="font-bold text-xl sm:text-2xl">
-            <span className="text-white">fyndyourhomes</span>
-            <span className="text-blue-400">.in</span>
+            <span className="text-white">
+              fyndyourhomes
+            </span>
+
+            <span className="text-blue-400">
+              .in
+            </span>
           </h1>
         </Link>
 
+
         {/* Right Side */}
+
         <div className="flex items-center gap-6">
-          
+
           {/* Home */}
+
           <Link
             to="/"
             className="text-white hover:text-blue-400 transition"
@@ -31,7 +49,22 @@ export default function Header() {
             Home
           </Link>
 
-          {currentUser?.isAdmin && (
+
+          {/* User Dashboard */}
+
+          {canAccessUserDashboard && (
+            <Link
+              to="/user-dashboard"
+              className="text-white hover:text-blue-400 transition"
+            >
+              User Dashboard
+            </Link>
+          )}
+
+
+          {/* Admin Dashboard */}
+
+          {isAdmin && (
             <Link
               to="/admin-dashboard"
               className="text-white hover:text-blue-400 transition"
@@ -40,7 +73,9 @@ export default function Header() {
             </Link>
           )}
 
-          {/* Working Notification Bell */}
+
+          {/* Notification */}
+
           <button
             type="button"
             onClick={handleNotificationClick}
@@ -50,7 +85,9 @@ export default function Header() {
             🔔
           </button>
 
+
           {/* Profile */}
+
           <Link to="/profile">
             {currentUser ? (
               <img

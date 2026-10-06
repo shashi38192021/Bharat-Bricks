@@ -36,6 +36,7 @@ const OAuth = () => {
       }
 
       dispatch(signInSuccess(data));
+      localStorage.setItem("hasAuthenticatedBefore", "true");
       navigate("/");
     } catch (error) {
       console.error("Google Sign-In Error:", error);

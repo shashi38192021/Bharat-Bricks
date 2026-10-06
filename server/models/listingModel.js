@@ -125,6 +125,18 @@ const listingSchema = new mongoose.Schema(
       required: true,
     },
 
+    createdByEmployee: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
+
+    assignedEmployee: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
+
     // Property Activity
     activity: {
       likedBy: [

@@ -192,6 +192,7 @@ const Profile = () => {
       }
 
       dispatch(signOutUserSuccess(data));
+      navigate("/");
     } catch (error) {
       dispatch(signOutUserFailure(error.message));
     }

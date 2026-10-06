@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import SignUp from "./pages/SignUp";
+import ForgotPassword from "./pages/ForgotPassword";
 import About from "./pages/About";
 import Profile from "./pages/Profile";
 import Header from "./components/Header";
@@ -18,7 +19,9 @@ import Listing from "./pages/Listing";
 import Search from "./pages/Search";
 import UserListings from "./pages/UserListings";
 import AdminDashboard from "./pages/AdminDashboard";
+import UserDashboard from "./pages/UserDashboard";
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
+import OnlyEmployeePrivateRoute from "./components/OnlyEmployeePrivateRoute";
 
 const App = () => {
   return (
@@ -27,6 +30,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<Signin />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/about" element={<About />} />
         <Route path="/search" element={<Search />} />
@@ -44,6 +48,9 @@ const App = () => {
             path="/update-listing/:listingId"
             element={<UpdateListing />}
           />
+        </Route>
+        <Route element={<OnlyEmployeePrivateRoute />}>
+          <Route path="/user-dashboard" element={<UserDashboard />} />
         </Route>
         <Route path="/user-listings" element={<UserListings />} />
         <Route element={<OnlyAdminPrivateRoute />}>
